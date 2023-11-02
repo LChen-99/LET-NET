@@ -96,3 +96,20 @@ The left is ours and the right is the original optical flow algorithm.
       archivePrefix={arXiv}
 }
 ```
+1.
+/home/caia/lc_ws/ncnn/build/install/bin/ncnnoptimize ./model/letnet.param ./model/letnet.bin letnet-opt.param letnet-opt.bin 0
+2.
+find ./imagenet-sample-images/ -type f > imagelist.txt
+3.
+/home/caia/lc_ws/ncnn/build/install/bin/ncnn2table ./letnet-opt.param ./letnet-opt.bin imagelist.txt letnet.table mean=[0,0,0] norm=[0.00392,0.00392,0.00392] shape=[320,240,1] pixel=GRAY thread=4 method=kl
+
+/home/caia/lc_ws/ncnn/build/install/bin/ncnn2table ./letnet-opt.param ./letnet-opt.bin imagelist.txt letnet.table  
+mean=[104,117,123] norm=[0.017,0.017,0.017]  shape=[320,240,1] pixel=GRAY thread=4 method=kl
+
+/home/caia/lc_ws/ncnn/build/install/bin/ncnn2int8 ./letnet-opt.param ./letnet-opt.bin letnet-int8.param letnet-int8.bin letnet.table
+
+./build/demo ./model/superpoint.param ./model/superpoint.bin ./assets/nyu_snippet.mp4
+
+./build/demo_rgb ./model/model.param ./model/model.bin ./assets/nyu_snippet.mp4
+
+./build/demo_gray ./model/letnet-int8.param ./model/letnet-int8.bin ./assets/nyu_snippet.mp4
