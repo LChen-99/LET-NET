@@ -80,12 +80,12 @@ int main(int argc, char** argv) {
         cv::Mat old_frame;
         cv::resize(frame, frame, cv::Size(IMG_W, IMG_H));
         old_frame = frame;
-        // if(frame.channels() == 3){
-        //     cv::cvtColor(frame, frame, cv::COLOR_BGR2GRAY);
-        // }
+        if(frame.channels() == 3){
+            cv::cvtColor(frame, frame, cv::COLOR_BGR2GRAY);
+        }
         //////////////////////////  opencv image to ncnn mat  //////////////////////////
         std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-        in = ncnn::Mat::from_pixels(frame.data, ncnn::Mat::PIXEL_BGR2GRAY, frame.cols, frame.rows);
+        in = ncnn::Mat::from_pixels(frame.data, ncnn::Mat::PIXEL_GRAY, frame.cols, frame.rows);
         std::cout << in.h<< ","<< in.w <<"," << in.c << std::endl;
         // in.reshape(IMG_H, IMG_W, 1);
         in.substract_mean_normalize(mean_vals, norm_vals);
@@ -102,7 +102,7 @@ int main(int argc, char** argv) {
         out1.to_pixels(score.data, ncnn::Mat::PIXEL_GRAY);
         desc = frame;
        
-        std::cout << score << std::endl;
+        // std::cout << score << std::endl;
         std::chrono::high_resolution_clock::time_point t4 = std::chrono::high_resolution_clock::now();
 
 

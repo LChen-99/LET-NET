@@ -83,7 +83,7 @@ int main(int argc, char** argv) {
         // std::cout << "type:" << CV_16FC1 << std::endl;
         //////////////////////////  opencv image to ncnn mat  //////////////////////////
         std::chrono::high_resolution_clock::time_point t1 = std::chrono::high_resolution_clock::now();
-        // std::cout << frame.size() << std::endl;
+        std::cout << frame.size() << std::endl;
         in = ncnn::Mat::from_pixels(frame.data, ncnn::Mat::PIXEL_BGR, frame.cols, frame.rows);
         in.substract_mean_normalize(mean_vals, norm_vals);
         
@@ -104,7 +104,7 @@ int main(int argc, char** argv) {
 //        memcpy((uchar*)score.data, out1.data, sizeof(float) * out1.w * out1.h);
         out1.to_pixels(score.data, ncnn::Mat::PIXEL_GRAY);
         out2.to_pixels(desc.data, ncnn::Mat::PIXEL_BGR);
-        std::cout << score << std::endl;
+        // std::cout << score << std::endl;
         std::chrono::high_resolution_clock::time_point t4 = std::chrono::high_resolution_clock::now();
 
 

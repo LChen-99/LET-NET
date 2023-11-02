@@ -129,7 +129,7 @@ int main(int argc, char** argv) {
         cv::waitKey(-1);
         cv::imshow("score", score);
         cv::waitKey(-1);
-        std::cout << score << std::endl;
+        // std::cout << score << std::endl;
         tracker.update(score, new_desc);
         tracker.show(old_frame);
         if (is_video) {
